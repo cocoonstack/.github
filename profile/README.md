@@ -19,3 +19,8 @@ MicroVM platform for AI sandboxing, cloud desktops, and ephemeral dev environmen
 | [cocoon-operator](https://github.com/cocoonstack/cocoon-operator) | Kubernetes operator — Hibernation and CocoonSet CRDs for stateful VM workflows |
 | [cocoon-webhook](https://github.com/cocoonstack/cocoon-webhook) | Admission webhook — sticky scheduling for VM-backed pods |
 | [glance](https://github.com/cocoonstack/glance) | Web dashboard — browser SSH, RDP, VNC, ADB access with auto-discovery |
+
+### Documentation
+
+- [Architecture](https://github.com/cocoonstack/.github/blob/main/docs/architecture.md) — component model, lifecycle, hibernation, snapshot distribution
+- [Deployment Guide](https://github.com/cocoonstack/.github/blob/main/docs/deployment.md) — prerequisites, environment variables, quick start
