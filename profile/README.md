@@ -22,5 +22,6 @@ MicroVM platform for AI sandboxing, cloud desktops, and ephemeral dev environmen
 
 ### Documentation
 
-- [Architecture](https://github.com/cocoonstack/.github/blob/main/docs/architecture.md) — component model, lifecycle, hibernation, snapshot distribution
-- [Deployment Guide](https://github.com/cocoonstack/.github/blob/main/docs/deployment.md) — prerequisites, environment variables, quick start
+| Project | Docs |
+|---------|------|
+| vk-cocoon | [Design](https://github.com/cocoonstack/.github/blob/main/docs/vk-cocoon/design.md) · [Deployment](https://github.com/cocoonstack/.github/blob/main/docs/vk-cocoon/deployment.md) |
