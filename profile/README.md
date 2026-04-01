@@ -11,4 +11,3 @@ Lightweight MicroVM engine built on [Cloud Hypervisor](https://github.com/cloud-
 | [epoch](https://github.com/cocoonstack/epoch) | Snapshot registry — manifests, blobs, distribution, token auth, optional Google/OIDC UI login |
 | [cocoon-operator](https://github.com/cocoonstack/cocoon-operator) | Kubernetes controllers — `CocoonSet` and `Hibernation` |
 | [cocoon-webhook](https://github.com/cocoonstack/cocoon-webhook) | Optional admission webhook — sticky scheduling for stateful VM-backed pods |
-| [glance](https://github.com/cocoonstack/glance) | Web dashboard — browser SSH, RDP, VNC, and ADB access |
