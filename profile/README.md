@@ -18,7 +18,6 @@ MicroVM platform for AI sandboxing, cloud desktops, and ephemeral dev environmen
 | [epoch](https://github.com/cocoonstack/epoch) | Snapshot registry — S3 blob storage, OCI-style API, web UI, instant VM provisioning |
 | [cocoon-operator](https://github.com/cocoonstack/cocoon-operator) | Kubernetes operator — Hibernation and CocoonSet CRDs for stateful VM workflows |
 | [cocoon-webhook](https://github.com/cocoonstack/cocoon-webhook) | Admission webhook — sticky scheduling for VM-backed pods |
-| [glance](https://github.com/cocoonstack/glance) | Web dashboard — browser SSH, RDP, VNC, ADB access with auto-discovery |
 
 ### Documentation
 

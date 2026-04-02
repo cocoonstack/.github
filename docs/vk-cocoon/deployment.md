@@ -62,4 +62,3 @@ export COCOON_BIN=/usr/local/bin/cocoon
 | [epoch](https://github.com/cocoonstack/epoch) | Remote snapshot storage and pull | For snapshot-based provisioning |
 | [cocoon-operator](https://github.com/cocoonstack/cocoon-operator) | CocoonSet and Hibernation CRDs | For managed VM groups |
 | [cocoon-webhook](https://github.com/cocoonstack/cocoon-webhook) | Sticky scheduling | For multi-node clusters |
-| [glance](https://github.com/cocoonstack/glance) | Web dashboard with browser access | Optional |
