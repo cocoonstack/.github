@@ -9,6 +9,7 @@ MicroVM platform for AI sandboxing, cloud desktops, and ephemeral dev environmen
 | [cocoon](https://github.com/cocoonstack/cocoon) | Lightweight MicroVM engine — OCI/cloud images, instant snapshot & clone, Windows 11 support, CNI networking, Docker-like CLI |
 | [cloud-hypervisor](https://github.com/cocoonstack/cloud-hypervisor) | Patched Cloud Hypervisor fork — DISCARD fix, virtio-net ctrl_queue tolerance, upstream cherry-picks |
 | [rust-hypervisor-firmware](https://github.com/cocoonstack/rust-hypervisor-firmware) | Patched UEFI firmware — ACPI ResetSystem fix for Windows graceful shutdown |
+| [windows](https://github.com/cocoonstack/windows) | Windows 11 25H2 image factory — unattended QEMU build, Cloud Hypervisor validation (DHCP, RDP, SAC, ACPI shutdown), published to GHCR as OCI artifacts |
 
 ### Kubernetes Integration
 
