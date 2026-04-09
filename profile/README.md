@@ -19,6 +19,8 @@ MicroVM platform for AI sandboxing, cloud desktops, and ephemeral dev environmen
 | [epoch](https://github.com/cocoonstack/epoch) | Snapshot registry — S3 blob storage, OCI-style API, web UI, instant VM provisioning |
 | [cocoon-operator](https://github.com/cocoonstack/cocoon-operator) | Kubernetes operator — Hibernation and CocoonSet CRDs for stateful VM workflows |
 | [cocoon-webhook](https://github.com/cocoonstack/cocoon-webhook) | Admission webhook — sticky scheduling for VM-backed pods |
+| [cocoon-net](https://github.com/cocoonstack/cocoon-net) | VPC-native networking — provisions alias IPs (GKE) or ENI secondary IPs (Volcengine) for direct VM DHCP |
+| [cocoon-common](https://github.com/cocoonstack/cocoon-common) | Shared Go library — metadata, Kubernetes helpers, logging utilities |
 
 ### Documentation
 
