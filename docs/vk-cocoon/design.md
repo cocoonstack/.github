@@ -27,7 +27,6 @@ Key annotations (all prefixed `vm.cocoonstack.io/`):
 | `vm.cocoonstack.io/managed` | operator / user | `"true"` (provider drives lifecycle) or `"false"` (external) |
 | `vm.cocoonstack.io/snapshot-policy` | operator / user | `always`, `main-only`, or `never` |
 | `vm.cocoonstack.io/hibernate` | operator | Hibernate state flag (`"true"` / `"false"`) |
-| `vm.cocoonstack.io/hibernate-epoch` | provider | Content-addressed tag tracking the hibernate snapshot |
 | `vm.cocoonstack.io/vnc-port` | provider / operator | VNC port (pre-assigned for unmanaged VMs) |
 
 ---
@@ -125,11 +124,9 @@ pod object stays alive throughout the cycle:
 
 1. `cocoon-operator` sets `vm.cocoonstack.io/hibernate=true` via the
    `Hibernation` CRD.
-2. `vk-cocoon` snapshots the VM, pushes to epoch with a **hibernate tag**,
-   destroys runtime state, and **leaves the pod object alive**.
-3. The hibernate epoch tag is recorded in
-   `vm.cocoonstack.io/hibernate-epoch` for content-addressed tracking.
-4. Waking (`hibernate=false`) pulls the hibernate snapshot and restores the VM
+2. `vk-cocoon` snapshots the VM, pushes to epoch with the **hibernate tag**
+   (`meta.HibernateSnapshotTag`), destroys runtime state, and **leaves the pod object alive**.
+3. Waking (`hibernate=false`) pulls the hibernate snapshot and restores the VM
    via `Clone`.
 
 This preserves Kubernetes ownership semantics while keeping VM state outside the
@@ -220,6 +217,6 @@ Windows is a **first-class** guest in the Cocoon lifecycle:
 | **Snapshot SDK** | `snapshots/` | Wraps the epoch SDK as a `RegistryClient` interface, plus `Puller` and `Pusher` that stream snapshots and cloud images via `epoch/snapshot` and `epoch/cloudimg`. |
 | **Network** | `network/` | dnsmasq lease parser — resolves a freshly cloned VM's IP by MAC address. |
 | **Guest exec** | `guest/` | SSH executor (Linux) and RDP help-text shim (Windows). |
-| **Probes** | `probes/` | In-memory readiness / liveness map for the `GetPodStatus` hot path. |
+| **Probes** | `probes/` | Per-pod probe agents that run a caller-supplied health check on a ticker, update the in-memory readiness map, and invoke an onUpdate callback so the async provider can push fresh status through v-k's notify hook. |
 | **Metrics** | `metrics/` | Prometheus collectors for pod lifecycle, snapshot pull / push, VM table size, orphans. |
 | **Build metadata** | `version/` | `ldflags`-injected version / revision / built-at strings. |
