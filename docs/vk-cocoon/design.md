@@ -175,8 +175,9 @@ Windows is a **first-class** guest in the Cocoon lifecycle:
 - **ACPI power-button shutdown** works with the patched CLOUDHV firmware.
 - Guest metadata is refreshed from live runtime state.
 - Clone and snapshot follow the **same flow** as Linux guests.
-- Guest exec falls back to the **RDP help-text shim** (`guest/`) instead of
-  SSH.
+- Guest exec uses the **RDP help-text shim** (`guest/`); kubectl exec on
+  Windows returns connection instructions instead of streaming a shell.
+  Linux guests stream a real shell over vsock via `cocoon-agent`.
 
 ---
 
@@ -213,10 +214,10 @@ Windows is a **first-class** guest in the Cocoon lifecycle:
 | Layer | Package | Responsibility |
 |---|---|---|
 | **Application** | `package main` | `CocoonProvider` — lifecycle methods (`CreatePod`, `DeletePod`, `UpdatePod`, `GetPodStatus`, `GetContainerLogs`, `RunInContainer`), startup reconcile, orphan policy. |
-| **Cocoon CLI** | `vm/` | `Runtime` interface + the default `CocoonCLI` implementation that shells out to `sudo cocoon …`. |
+| **Cocoon CLI** | `vm/` | `Runtime` interface + the default `CocoonCLI` implementation that shells out to `sudo cocoon …`. Linux kubectl exec / logs go through `cocoon vm exec` and `cocoon vm logs --tail` here, which dial the per-VM vsock UDS into `cocoon-agent`. |
 | **Snapshot SDK** | `snapshots/` | Wraps the epoch SDK as a `RegistryClient` interface, plus `Puller` and `Pusher` that stream snapshots and cloud images via `epoch/snapshot` and `epoch/cloudimg`. |
-| **Network** | `network/` | dnsmasq lease parser — resolves a freshly cloned VM's IP by MAC address. |
-| **Guest exec** | `guest/` | SSH executor (Linux) and RDP help-text shim (Windows). |
+| **Network** | `network/` | cocoon-net lease parser — resolves a freshly cloned VM's IP by MAC address. |
+| **Guest exec** | `guest/` | RDP help-text shim (Windows) and SAC dialer (Windows static IP). Linux guests no longer have a per-VM credential path; their exec/logs flow through `vm/`. |
 | **Probes** | `probes/` | Per-pod probe agents that run a caller-supplied health check on a ticker, update the in-memory readiness map, and invoke an onUpdate callback so the async provider can push fresh status through v-k's notify hook. |
 | **Metrics** | `metrics/` | Prometheus collectors for pod lifecycle, snapshot pull / push, VM table size, orphans. |
 | **Build metadata** | `version/` | `ldflags`-injected version / revision / built-at strings. |

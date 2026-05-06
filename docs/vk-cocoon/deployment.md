@@ -35,7 +35,6 @@ The table below lists every environment variable recognised by `vk-cocoon`.
 | `EPOCH_TOKEN` | unset | Bearer token (only needed for `/v2/` pushes; `/dl/` is anonymous). |
 | `VK_LEASES_PATH` | `/var/lib/misc/dnsmasq.leases` | dnsmasq lease file. |
 | `VK_COCOON_BIN` | `/usr/local/bin/cocoon` | Path to the cocoon CLI binary. |
-| `VK_SSH_PASSWORD` | unset | SSH password for `kubectl logs / exec` against Linux guests. |
 | `VK_ORPHAN_POLICY` | `alert` | `alert`, `destroy`, or `keep`. |
 | `VK_NODE_IP` | auto-detected | Override the virtual node's InternalIP address (first non-loopback IPv4 used otherwise). |
 | `VK_NODE_POOL` | `default` | Cocoon pool label stamped onto the registered node. |
