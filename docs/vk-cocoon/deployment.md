@@ -20,7 +20,7 @@ Every worker node that will host MicroVMs must satisfy the following:
 | **Cocoon root directory** | `/data01/cocoon` by default. This is where VM disks, firmware, and runtime state are stored. |
 | **Kubernetes API access** | A valid kubeconfig or in-cluster service-account token so `vk-cocoon` can register its virtual node. |
 | **KVM enabled** | `/dev/kvm` must exist and be accessible by the user running `vk-cocoon`. |
-| **dnsmasq** | Used for DHCP lease tracking. `vk-cocoon` reads the lease file to discover guest IP addresses. |
+| **cocoon-net** | Runs the per-host embedded DHCP server and writes the JSON lease file `vk-cocoon` reads to discover guest IPs by MAC. |
 
 ## Environment Variables
 
@@ -33,7 +33,7 @@ The table below lists every environment variable recognised by `vk-cocoon`.
 | `VK_LOG_LEVEL` | `info` | `projecteru2/core/log` level. |
 | `EPOCH_URL` | `http://epoch.cocoon-system.svc:8080` | Epoch base URL. |
 | `EPOCH_TOKEN` | unset | Bearer token (only needed for `/v2/` pushes; `/dl/` is anonymous). |
-| `VK_LEASES_PATH` | `/var/lib/misc/dnsmasq.leases` | dnsmasq lease file. |
+| `VK_LEASES_PATH` | `/var/lib/cocoon/net/leases.json` | cocoon-net JSON lease file. |
 | `VK_COCOON_BIN` | `/usr/local/bin/cocoon` | Path to the cocoon CLI binary. |
 | `VK_ORPHAN_POLICY` | `alert` | `alert`, `destroy`, or `keep`. |
 | `VK_NODE_IP` | auto-detected | Override the virtual node's InternalIP address (first non-loopback IPv4 used otherwise). |

@@ -46,7 +46,7 @@ Key annotations (all prefixed `vm.cocoonstack.io/`):
 | `true` | `clone` (default) | Pull the snapshot from epoch via `Puller.PullSnapshot` if not cached locally, then `Runtime.Clone`. |
 | `true` | `run` | `Runtime.Run(image=spec.Image, name=spec.VMName)` — fresh boot from a cloud image. |
 
-4. Resolve the guest IP from the **dnsmasq lease file** by MAC address.
+4. Resolve the guest IP from the **cocoon-net JSON lease file** by MAC address.
 5. `meta.VMRuntime{VMID, IP}.Apply(pod)` writes runtime annotations
    (`vm.cocoonstack.io/id`, `vm.cocoonstack.io/ip`) back to the pod.
 
@@ -175,9 +175,9 @@ Windows is a **first-class** guest in the Cocoon lifecycle:
 - **ACPI power-button shutdown** works with the patched CLOUDHV firmware.
 - Guest metadata is refreshed from live runtime state.
 - Clone and snapshot follow the **same flow** as Linux guests.
-- Guest exec uses the **RDP help-text shim** (`guest/`); kubectl exec on
-  Windows returns connection instructions instead of streaming a shell.
-  Linux guests stream a real shell over vsock via `cocoon-agent`.
+- Guest exec streams over vsock via `cocoon-agent` on Windows and Linux
+  alike; the SAC serial dialer in `guest/` is used only for the Windows
+  static-IP post-clone fixup.
 
 ---
 
@@ -217,7 +217,7 @@ Windows is a **first-class** guest in the Cocoon lifecycle:
 | **Cocoon CLI** | `vm/` | `Runtime` interface + the default `CocoonCLI` implementation that shells out to `sudo cocoon …`. Linux kubectl exec / logs go through `cocoon vm exec` and `cocoon vm logs --tail` here, which dial the per-VM vsock UDS into `cocoon-agent`. |
 | **Snapshot SDK** | `snapshots/` | Wraps the epoch SDK as a `RegistryClient` interface, plus `Puller` and `Pusher` that stream snapshots and cloud images via `epoch/snapshot` and `epoch/cloudimg`. |
 | **Network** | `network/` | cocoon-net lease parser — resolves a freshly cloned VM's IP by MAC address. |
-| **Guest exec** | `guest/` | RDP help-text shim (Windows) and SAC dialer (Windows static IP). Linux guests no longer have a per-VM credential path; their exec/logs flow through `vm/`. |
-| **Probes** | `probes/` | Per-pod probe agents that run a caller-supplied health check on a ticker, update the in-memory readiness map, and invoke an onUpdate callback so the async provider can push fresh status through v-k's notify hook. |
+| **Guest console** | `guest/` | SAC serial dialer for the Windows static-IP post-clone fixup. Exec/logs flow through `vm/` (cocoon-agent vsock) on every guest OS. |
+| **Probes** | `probes/` | Per-pod probe agents that run a caller-supplied health check on exponential backoff (≈100 ms pre-Ready, 5 s steady), update the in-memory readiness map, and invoke an onUpdate callback so the async provider can push fresh status through v-k's notify hook. |
 | **Metrics** | `metrics/` | Prometheus collectors for pod lifecycle, snapshot pull / push, VM table size, orphans. |
 | **Build metadata** | `version/` | `ldflags`-injected version / revision / built-at strings. |
