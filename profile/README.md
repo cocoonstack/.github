@@ -36,3 +36,5 @@ MicroVM platform for AI sandboxing, cloud desktops, and ephemeral dev environmen
 | Repository | Description | Docs |
 |---|---|---|
 | [sandbox](https://github.com/cocoonstack/sandbox) | Fast cold-boot AI-agent sandbox on cocoon — warm pools, in-guest daemon, per-node control plane, Go SDK | [docs](https://cocoonstack.github.io/sandbox/) |
+| [sandbox-operator](https://github.com/cocoonstack/sandbox-operator) | Kubernetes operator and aggregated apiserver for the `agents.x-k8s.io` agent-sandbox API — warm microVM pools, claims through any Kubernetes SDK, etcd off the claim path | [docs](https://cocoonstack.github.io/sandbox-operator/) |
+| [vk-sandbox](https://github.com/cocoonstack/vk-sandbox) | Virtual Kubelet provider for sandbox-operator — serves `runtime: sandboxd` claims from node-local hot pools and publishes NodeInventory | [docs](https://cocoonstack.github.io/vk-sandbox/) |
