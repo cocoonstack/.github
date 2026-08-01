@@ -25,12 +25,6 @@ MicroVM platform for AI sandboxing, cloud desktops, and ephemeral dev environmen
 | [cocoon-net](https://github.com/cocoonstack/cocoon-net) | VPC-native networking — embedded DHCP plus alias IPs (GKE) or ENI secondary IPs (Volcengine) for direct VM DHCP | [docs](https://cocoonstack.github.io/cocoon-net/) |
 | [cocoon-common](https://github.com/cocoonstack/cocoon-common) | Shared Go library — CRD types, annotation contract, Kubernetes helpers, OCI registry + snapshot packages | — |
 
-### Services
-
-| Repository | Description | Docs |
-|---|---|---|
-| [gateway](https://github.com/cocoonstack/gateway) | Single-binary LLM gateway (`gw`) in Rust — OpenAI/Anthropic-compatible APIs, multi-provider routing, per-key auth / quotas / rate-limits, failover, billing ledger | [docs](https://cocoonstack.github.io/gateway/) |
-
 ### Sandbox
 
 | Repository | Description | Docs |
